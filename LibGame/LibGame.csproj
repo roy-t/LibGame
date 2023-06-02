@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<!-- Version Info -->
+	<PropertyGroup>
+		<AssemblyVersion>0.0.1</AssemblyVersion>
+		<FileVersion>$(AssemblyVersion)</FileVersion>
+	</PropertyGroup>
+
+	<!--Nuget Package Info-->
+	<PropertyGroup>
+		<Title>LibGame</Title>
+		<Authors>Roy Triesscheijn</Authors>
+		<Description>A utility library with game related classes and algorithms</Description>
+		<PackageProjectUrl>https://github.com/roy-t/LibGame</PackageProjectUrl>
+		<Copyright>© 2023 Roy Triesscheijn</Copyright>
+		<PackageIcon>noun-vector-1027057.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/roy-t/LibGame</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>gamedev, gamedevelopment, utilities, vectors, matrix, numerics, path, curve</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<!-- Build info -->
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<LangVersion>Latest</LangVersion>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>nullable</WarningsAsErrors>
+		<Version>$(AssemblyVersion)</Version>
+	</PropertyGroup>
+
+	<!-- Resources -->
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\Resources\noun-vector-1027057.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+</Project>
