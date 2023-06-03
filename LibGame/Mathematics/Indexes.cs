@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace LibGame.Basics;
+namespace LibGame.Mathematics;
 
 public static class Indexes
 {

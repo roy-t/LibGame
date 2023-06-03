@@ -1,6 +1,6 @@
-using LibGame.Basics;
+using LibGame.Mathematics;
 
-namespace LibGame.Tests.Basics;
+namespace LibGame.Tests.Mathematics;
 
 public static class IndexesTests
 {
