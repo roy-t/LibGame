@@ -1,4 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Build info -->
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<LangVersion>Latest</LangVersion>
@@ -6,10 +8,15 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
-		<IsPackable>false</IsPackable>
-		<IsTestProject>true</IsTestProject>
+
 	</PropertyGroup>
 
+	<!-- Test library configuration -->
+	<PropertyGroup>
+		<IsTestProject>true</IsTestProject>
+		<IsPackable>false</IsPackable>		
+	</PropertyGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
 		<PackageReference Include="xunit" Version="2.4.2" />
@@ -23,8 +30,8 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<!-- Reference to subjects under test -->
 	<ItemGroup>
-	  <ProjectReference Include="..\LibGame\LibGame.csproj" />
+		<ProjectReference Include="..\LibGame\LibGame.csproj" />
 	</ItemGroup>
-
 </Project>
