@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   publish:
-    name: build, text, pack, publish
+    name: build, test, pack, publish
     runs-on: ubuntu-latest
     timeout-minutes: 15    
     steps:      
@@ -14,7 +14,7 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
       - name: Test
-        run: dotnet test ./LibGame.sln --no-build
+        run: dotnet test --configuration Release ./LibGame.sln --no-build
       - name: Pack
         run: dotnet pack --configuration Release --no-build --output .
       - name: Publish
