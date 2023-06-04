@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<!-- Version Info -->
 	<PropertyGroup>
-		<AssemblyVersion>0.0.3</AssemblyVersion>
+		<AssemblyVersion>0.0.4</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 	</PropertyGroup>
 
@@ -30,6 +30,7 @@
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
 		<Version>$(AssemblyVersion)</Version>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<!-- Resources -->

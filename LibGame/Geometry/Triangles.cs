@@ -3,6 +3,9 @@ using System.Numerics;
 
 namespace LibGame.Geometry;
 
+/// <summary>
+/// Utility functions for triangles
+/// </summary>
 public static class Triangles
 {
 
@@ -61,17 +64,27 @@ public static class Triangles
         return distances[0] + distances[1] > distances[2];
     }
 
+
+    /// <summary>
+    /// Returns true if the vertices of the triangle appear in clockwise order
+    /// </summary>
     public static bool IsTriangleClockwise(Vector2 a, Vector2 b, Vector2 c)
     {
         var crossProduct = ((b.X - a.X) * (c.Y - a.Y)) - ((b.Y - a.Y) * (c.X - a.X));
         return crossProduct < 0;
     }
 
+    /// <summary>
+    /// Returns true if the vertices of the triangle appear in counter-clockwise order
+    /// </summary>
     public static bool IsTriangleCounterClockwise(Vector2 a, Vector2 b, Vector2 c)
     {
         return !IsTriangleClockwise(a, b, c);
     }
-   
+
+    /// <summary>
+    /// Returns true if the given vertex is inside or at the boundary of the given triangle
+    /// </summary>
     public static bool IsVertexInsideTriangle(Vector2 vertex, Vector2 a, Vector2 b, Vector2 c)
     {
         var d1 = GetSide(vertex, a, b);
@@ -89,6 +102,9 @@ public static class Triangles
         return ((b.X - a.X) * (c.Y - a.Y)) - ((b.Y - a.Y) * (c.X - a.X));
     }
 
+    /// <summary>
+    /// Returns true if the given vertex, projected onto the triangle is inside or at the boundary of the given triangle
+    /// </summary>
     public static bool IsVertexInsideTriangle(Vector3 vertex, Vector3 a, Vector3 b, Vector3 c)
     {
         var barycentric = Barycentric(vertex, a, b, c);
@@ -104,10 +120,10 @@ public static class Triangles
 
     /// <summary>
     /// Compute barycentric coordinates (u, v, w) for the given vertex with respect to triangle (a, b, c)
+    /// See also: https://gamedev.stackexchange.com/questions/23743/whats-the-most-efficient-way-to-find-barycentric-coordinates
     /// </summary>    
     public static Vector3 Barycentric(Vector3 vertex, Vector3 a, Vector3 b, Vector3 c)
     {
-        // https://gamedev.stackexchange.com/questions/23743/whats-the-most-efficient-way-to-find-barycentric-coordinates
         var v0 = b - a;
         var v1 = c - a;
         var v2 = vertex - a;
