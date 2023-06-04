@@ -1,4 +1,7 @@
-﻿namespace LibGame.Mathematics;
+﻿using System.Diagnostics;
+using System.Numerics;
+
+namespace LibGame.Mathematics;
 
 public static class Radians
 {
@@ -33,5 +36,44 @@ public static class Radians
     public static float WrapRadians(float radians, float min, float max)
     {
         return min + WrapRadians(radians - min, max - min);
+    }
+
+    public static float DistanceRadians(float sourceAngle, float targetAngle)
+    {
+        sourceAngle = WrapRadians(sourceAngle);
+        targetAngle = WrapRadians(targetAngle);
+
+        var angle = targetAngle - sourceAngle;
+        if (angle > MathF.PI)
+        {
+            angle -= MathF.Tau;
+        }
+
+        if (angle < -MathF.PI)
+        {
+            angle += MathF.Tau;
+        }
+
+        return angle;
+    }
+
+    public static float YawFromVector(Vector3 direction)
+    {
+        Debug.Assert(Vector3.Normalize(direction) != Vector3.UnitY);
+        Debug.Assert(Vector3.Normalize(direction) != -Vector3.UnitY);
+
+        // project on XZ plane
+        var projected = Vector3.Normalize(new Vector3(direction.X, 0.0f, direction.Z));
+        return WrapRadians(MathF.Atan2(projected.X, projected.Z) + MathF.PI);
+    }
+    
+    public static float PitchFromVector(Vector3 direction)
+    {
+        Debug.Assert(Vector3.Normalize(direction) != Vector3.UnitX);
+        Debug.Assert(Vector3.Normalize(direction) != -Vector3.UnitX);
+
+        // project on ZY plane
+        var projected = Vector3.Normalize(new Vector3(0.0f, direction.Y, direction.Z));
+        return WrapRadians(MathF.Atan2(projected.Y, -projected.Z)); // minus because we use -Z is forward
     }
 }
