@@ -1,30 +1,29 @@
 ﻿using System.Collections;
-using System.ComponentModel;
 
 namespace LibGame.Collections;
 
 /// <summary>
-/// A RefPool is specifically designed to efficiently work with a large number of structs.
+/// A StructPool is specifically designed to efficiently work with a large number of structs.
 /// The items are internally stored in one big array which improves memory locality when iterating
 /// this container.
 ///
 /// Removing elements leave holes in the internal array, so use IsOccupied to check if it is save to retrieve an element using
-/// the indexing operator. The <see cref="RefPoolIterator{T}">RefPoolIterator</see> will do this for you.
+/// the indexing operator. The <see cref="StructPoolEnumerator{T}"/> will do this for you.
 ///
 /// Notes:
 /// - When adding items you can use the `in` modifier to avoid unncessary copying of large structs.
-/// - When retrieving items directly, or via the RefPoolIterator this collection returns a reference to avoud unnecessary copying and to make it easier to change the element
+/// - When retrieving items directly, or via the StructPoolIterator this collection returns a reference to avoud unnecessary copying and to make it easier to change the element
 /// </summary>
 /// <typeparam name="T">The element type, must be a struct</typeparam>
 /// <example>
-/// var pool = new RefPool&lt;int&gt;(3000);
+/// var pool = new StructPool&lt;int&gt;(3000);
 /// pool.Add(3);
 /// foreach(ref var element in pool)
 /// {
 ///   // Do something
 /// }
 /// </example>
-public sealed class RefPool<T> : IRefEnumerable<T>
+public sealed class StructPool<T> : IRefEnumerable<T>
     where T : struct
 {
     private readonly BitArray Occupancy;
@@ -35,9 +34,9 @@ public sealed class RefPool<T> : IRefEnumerable<T>
     private int count;
 
     /// <summary>
-    /// Create a new RefPool with the given initial capacity
+    /// Create a new pool with the given initial capacity
     /// </summary>    
-    public RefPool(int initialCapacity = 4)
+    public StructPool(int initialCapacity = 4)
     {
         this.Occupancy = new BitArray(initialCapacity);
         this.pool = new T[initialCapacity];
@@ -49,7 +48,7 @@ public sealed class RefPool<T> : IRefEnumerable<T>
     public int Capacity => this.pool.Length;
 
     /// <summary>
-    /// Retrieves the item at the given index and returns a reference to it
+    /// Retrieves the element at the given index and returns a reference to it
     /// </summary>        
     /// <exception cref="KeyNotFoundException">If there was no element at the given index</exception>
     public ref T this[int index]
@@ -116,15 +115,14 @@ public sealed class RefPool<T> : IRefEnumerable<T>
     /// <summary>
     /// Returns the enumerator, allows the user to use foreach(ref var x in this) on this collection
     /// </summary>    
-    public IRefEnumerator<T> GetEnumerator()
+    public IStructEnumerator<T> GetEnumerator()
     {
-        return new RefPoolIterator<T>(this);
+        return new StructPoolEnumerator<T>(this);
     }
 
     /// <summary>
-    /// Moves items around to fill all holes in the underlying array
+    /// Moves items around to fill all holes in the underlying array, note that this changes the indexes
     /// </summary>
-    /// <remarks>After calling this method the index return by the Add method is no longer valid</remarks>
     public void Defrag()
     {
         while (this.lowestUnusedSlot < this.highestUsedSlot)
@@ -134,8 +132,6 @@ public sealed class RefPool<T> : IRefEnumerable<T>
             this.lowestUnusedSlot = this.IndexOfFirstUnused(this.lowestUnusedSlot + 1);
             this.highestUsedSlot = this.IndexOfLastUsed(this.highestUsedSlot - 1);
         }
-
-        var list = new List<T>();
     }
 
     /// <summary>

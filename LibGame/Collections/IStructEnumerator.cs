@@ -4,7 +4,7 @@
 /// An enumerator that allows users to access elements in the container by reference
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IRefEnumerator<T>
+public interface IStructEnumerator<T>
     where T : struct
 {
     /// <inheritdoc/>
@@ -24,5 +24,5 @@ public interface IRefEnumerable<T>
     where T : struct
 {
     /// <inheritdoc/>
-    IRefEnumerator<T> GetEnumerator();
+    IStructEnumerator<T> GetEnumerator();
 }

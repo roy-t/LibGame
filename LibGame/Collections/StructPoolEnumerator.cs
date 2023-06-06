@@ -1,12 +1,18 @@
 ﻿namespace LibGame.Collections;
 
-public struct RefPoolIterator<T> : IRefEnumerator<T>
+/// <summary>
+/// Custom enumerator for <see cref="StructPool{T}"/>
+/// </summary>
+public struct StructPoolEnumerator<T> : IStructEnumerator<T>
 where T : struct
 {
-    private readonly RefPool<T> Pool;
+    private readonly StructPool<T> Pool;
     private int index;
 
-    public RefPoolIterator(RefPool<T> pool)
+    /// <summary>
+    /// Creates an enumerator for the given pool
+    /// </summary>
+    public StructPoolEnumerator(StructPool<T> pool)
     {
         this.Pool = pool;
         this.Reset();

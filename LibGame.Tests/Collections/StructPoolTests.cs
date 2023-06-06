@@ -2,13 +2,13 @@
 
 namespace LibGame.Tests.Collections;
 
-public static class RefPoolTests
+public static class StructPoolTests
 {
-    [Fact(DisplayName = "Smoke test for `RefPool`")]
+    [Fact(DisplayName = "Smoke test for `StructPool`")]
     public static void SmokeTest()
     {
         // Test initial capacity
-        var pool = new RefPool<Vector3>(7);
+        var pool = new StructPool<Vector3>(7);
         Equal(7, pool.Capacity);
 
         // Test occupancy
