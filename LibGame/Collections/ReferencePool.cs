@@ -3,7 +3,9 @@
 namespace LibGame.Collections;
 
 /// <summary>
-/// A pool like collection for reference types, use <see cref="StructPool{T}" /> when T is a struct
+/// A pool like collection for reference types, use <see cref="StructPool{T}" /> when T is a struct.
+/// The main benefit of this structure over <see cref="List{T}"/> is that indices stay the same as long
+/// <see cref="Defrag"/> isn't called, even when items are removed.
 /// </summary>
 public sealed class ReferencePool<T> : IEnumerable<T>
     where T : class
