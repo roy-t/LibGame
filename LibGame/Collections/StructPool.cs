@@ -2,6 +2,8 @@
 
 namespace LibGame.Collections;
 
+public delegate void Initializer<T, A>(ref T empty, A argument) where T : struct;
+
 /// <summary>
 /// A StructPool is specifically designed to efficiently work with a large number of structs.
 /// The items are internally stored in one big array which improves memory locality when iterating
@@ -69,17 +71,39 @@ public sealed class StructPool<T> : IRefEnumerable<T>
     /// </summary>
     public int Add(in T item)
     {
-        this.EnsureCapacity(this.count + 1);
-
-        var index = this.lowestUnusedSlot;
-        this.lowestUnusedSlot = this.IndexOfFirstUnused(this.lowestUnusedSlot + 1);
-        this.highestUsedSlot = Math.Max(this.highestUsedSlot, index);
+        var index = this.PrepareInsertItem();
 
         this.Occupancy[index] = true;
         this.pool[index] = item;
 
         this.count += 1;
 
+        return index;
+    }
+
+    /// <summary>
+    /// Create the given element using the given initializer to initialize an empty element in the array
+    /// </summary>
+    public int Add<A>(Initializer<T, A> initializer, A argument)
+    {
+        var index = this.PrepareInsertItem();
+
+        this.Occupancy[index] = true;
+        initializer(ref this.pool[index], argument);
+
+        this.count += 1;
+
+        return index;
+    }
+
+    // Ensures there is enough room to insert an item, then returns the index of where to insert it
+    private int PrepareInsertItem()
+    {
+        this.EnsureCapacity(this.count + 1);
+
+        var index = this.lowestUnusedSlot;
+        this.lowestUnusedSlot = this.IndexOfFirstUnused(this.lowestUnusedSlot + 1);
+        this.highestUsedSlot = Math.Max(this.highestUsedSlot, index);
         return index;
     }
 
