@@ -21,10 +21,10 @@ public struct ReferencePoolEnumerator<T> : IEnumerator<T>
     }
 
     /// <inheritdoc/>
-    public T Current => this.Pool[this.index]!;
+    public readonly T Current => this.Pool[this.index]!;
 
     /// <inheritdoc/>
-    object IEnumerator.Current => this.Pool[this.index]!;
+    readonly object IEnumerator.Current => this.Pool[this.index]!;
 
     /// <inheritdoc/>
     public bool MoveNext()

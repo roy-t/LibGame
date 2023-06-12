@@ -19,7 +19,7 @@ where T : struct
     }
 
     /// <inheritdoc/>
-    public ref T Current => ref this.Pool[this.index];
+    public readonly ref T Current => ref this.Pool[this.index];
 
     /// <inheritdoc/>
     public bool MoveNext()

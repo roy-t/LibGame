@@ -22,7 +22,7 @@ public readonly struct Transform
         this.IsSet = true;
     }
 
-    public Matrix4x4 GetMatrix()
+    public readonly Matrix4x4 GetMatrix()
     {
         var moveToCenter = Matrix4x4.CreateTranslation(-this.Origin);
         var size = Matrix4x4.CreateScale(this.GetScale());
@@ -32,7 +32,7 @@ public readonly struct Transform
         return size * moveToCenter * rotationMatrix4x4 * translation;
     }
 
-    public Quaternion GetRotation()
+    public readonly Quaternion GetRotation()
     {
         if (this.IsSet)
         {
@@ -42,27 +42,27 @@ public readonly struct Transform
         return Quaternion.Identity;
     }
 
-    public Vector3 GetPosition()
+    public readonly Vector3 GetPosition()
     {
         return this.Position;
     }
 
-    public Vector3 GetForward()
+    public readonly Vector3 GetForward()
     {
         return Vector3.Transform(-Vector3.UnitZ, this.GetRotation());
     }
 
-    public Vector3 GetUp()
+    public readonly Vector3 GetUp()
     {
         return Vector3.Transform(Vector3.UnitY, this.GetRotation());
     }
 
-    public Vector3 GetLeft()
+    public readonly Vector3 GetLeft()
     {
         return Vector3.Transform(-Vector3.UnitX, this.GetRotation());
     }
 
-    public float GetScale()
+    public readonly float GetScale()
     {
         if (this.IsSet)
         {
@@ -72,60 +72,60 @@ public readonly struct Transform
         return 1.0f;
     }
 
-    public Vector3 GetOrigin()
+    public readonly Vector3 GetOrigin()
     {
         return this.Origin;
     }
 
-    public Transform SetOrigin(Vector3 origin)
+    public readonly Transform SetOrigin(Vector3 origin)
     {
         return new Transform(this.Position, this.GetRotation(), origin, this.GetScale());
     }
 
-    public Transform SetRotation(Quaternion rotation)
+    public readonly Transform SetRotation(Quaternion rotation)
     {
         return new Transform(this.Position, rotation, this.Origin, this.GetScale());
     }
 
-    public Transform AddRotation(Quaternion offset)
+    public readonly Transform AddRotation(Quaternion offset)
     {
         var q = Quaternion.Multiply(offset, this.GetRotation());
         return new Transform(this.Position, Quaternion.Normalize(q), this.Origin, this.GetScale());
     }
 
-    public Transform AddLocalRotation(Quaternion offset)
+    public readonly Transform AddLocalRotation(Quaternion offset)
     {
         var q = Quaternion.Multiply(this.GetRotation(), offset);
         return new Transform(this.Position, Quaternion.Normalize(q), this.Origin, this.GetScale());
     }
 
-    public Transform SetTranslation(Vector3 translation)
+    public readonly Transform SetTranslation(Vector3 translation)
     {
         return new Transform(translation, this.GetRotation(), this.Origin, this.GetScale());
     }
 
-    public Transform AddTranslation(Vector3 offset)
+    public readonly Transform AddTranslation(Vector3 offset)
     {
         return new Transform(this.Position + offset, this.GetRotation(), this.Origin, this.GetScale());
     }    
 
-    public Transform AddLocalTranslation(Vector3 offset)
+    public readonly Transform AddLocalTranslation(Vector3 offset)
     {
         var vector = Vector3.Transform(offset, this.GetRotation());
         return this.AddTranslation(vector);
     }
 
-    public Transform SetScale(float scale)
+    public readonly Transform SetScale(float scale)
     {
         return new Transform(this.Position, this.GetRotation(), this.Origin, scale);
     }
 
-    public Transform AddScale(float change)
+    public readonly Transform AddScale(float change)
     {
         return new Transform(this.Position, this.GetRotation(), this.Origin, this.GetScale() * change);
     }
 
-    public Transform FaceTarget(Vector3 target)
+    public readonly Transform FaceTarget(Vector3 target)
     {
         var currentForward = this.GetForward();
         var desiredForward = Vector3.Normalize(target - this.Position);
@@ -158,7 +158,7 @@ public readonly struct Transform
         return new Transform(this.Position, Quaternion.Normalize(q), this.Origin, this.GetScale());
     }
 
-    public Transform FaceTargetConstrained(Vector3 target, Vector3 up)
+    public readonly Transform FaceTargetConstrained(Vector3 target, Vector3 up)
     {
         var dot = Vector3.Dot(Vector3.Normalize(target - this.Position), up);
         if (Math.Abs(dot) < 0.99f)
