@@ -50,6 +50,11 @@ public sealed class StructPool<T> : IRefEnumerable<T>
     public int Capacity => this.pool.Length;
 
     /// <summary>
+    /// True if there are zero active elements in this pool
+    /// </summary>
+    public bool IsEmpty => this.count == 0;
+
+    /// <summary>
     /// Retrieves the element at the given index and returns a reference to it
     /// </summary>        
     /// <exception cref="KeyNotFoundException">If there was no element at the given index</exception>
