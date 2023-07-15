@@ -44,4 +44,24 @@ public static class GridsTests
         Equal(4, y);
         Equal(4, z);
     }
+
+    [Fact(DisplayName = "`GetCellBounds` should return the boundaries of the given cell in world coordinates")]
+    public static void GetCellBounds()
+    {
+        var (min, max) = Grids.GetCellBounds(9, 9, 9, Vector3.One, Vector3.Zero, 4, 4, 4);
+
+        Equal(Vector3.One * -0.5f, min);
+        Equal(Vector3.One * 0.5f, max);
+
+        (min, max) = Grids.GetCellBounds(9, 9, 9, Vector3.One, Vector3.Zero, 0, 0, 0);
+
+        Equal(Vector3.One * -4.5f, min);
+        Equal(Vector3.One * -3.5f, max);
+
+
+        (min, max) = Grids.GetCellBounds(9, 9, 9, Vector3.One, Vector3.Zero, 8, 8, 8);
+
+        Equal(Vector3.One * 3.5f, min);
+        Equal(Vector3.One * 4.5f, max);
+    }
 }

@@ -28,4 +28,32 @@ public static class Grids
 
         return (x, y, z);
     }
+
+
+    /// <summary>
+    /// Gives the world boundaries of the given cell by overlaying the grid onto
+    /// the world space such that grid cell (0, 0, 0) is the most left, most bottom, most forward cell (-X, -Y, -Z)
+    /// of the area covered.
+    /// </summary>
+    /// <param name="dimX">The number of grid cells in the X-dimension</param>
+    /// <param name="dimY">The number of grid cells in the Y-dimension</param>
+    /// <param name="dimZ">The number of grid cells in the Z-dimension</param>
+    /// <param name="cellSize">The size of each grid cell</param>
+    /// <param name="center">The world coordinates of the center of the grid</param>
+    /// <param name="x">The cell X index</param>
+    /// <param name="y">The cell Y index</param>
+    /// <param name="z">The cell Z index</param>
+    /// <returns>The world boundaries of the cell</returns>
+    public static (Vector3 Min, Vector3 Max) GetCellBounds(int dimX, int dimY, int dimZ, Vector3 cellSize, Vector3 center, int x, int y, int z)
+    {
+        var offset = (new Vector3(dimX, dimY, dimZ) * 0.5f) - center;
+
+        var minIndex = new Vector3(x, y, z);
+        var min = (minIndex * cellSize) - offset;
+
+        var maxIndex = minIndex + Vector3.One;
+        var max = (maxIndex * cellSize) - offset;
+
+        return (min, max);
+    }
 }
