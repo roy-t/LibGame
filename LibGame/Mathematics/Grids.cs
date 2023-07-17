@@ -18,7 +18,7 @@ public static class Grids
     /// <returns>The grid cell containing, or closest to, the given world coordinates</returns>
     public static (int X, int Y, int Z) PickCell(int dimX, int dimY, int dimZ, Vector3 cellSize, Vector3 center, Vector3 world)
     {
-        var offset = (new Vector3(dimX, dimY, dimZ) * 0.5f) - center;
+        var offset = (new Vector3(dimX, dimY, dimZ) *  cellSize * 0.5f) - center;
         world += offset;
         var grid = world / cellSize;
 
@@ -46,7 +46,7 @@ public static class Grids
     /// <returns>The world boundaries of the cell</returns>
     public static (Vector3 Min, Vector3 Max) GetCellBounds(int dimX, int dimY, int dimZ, Vector3 cellSize, Vector3 center, int x, int y, int z)
     {
-        var offset = (new Vector3(dimX, dimY, dimZ) * 0.5f) - center;
+        var offset = (new Vector3(dimX, dimY, dimZ) * cellSize * 0.5f) - center;
 
         var minIndex = new Vector3(x, y, z);
         var min = (minIndex * cellSize) - offset;
