@@ -83,6 +83,25 @@ public static class Triangles
     }
 
     /// <summary>
+    /// Returns true if the vertices of the triangle appear in clockwise order. Given the up-vector (normalized vector
+    /// pointing from the triangle towards the viewer).
+    /// </summary>
+    public static bool IsTriangleClockwise(Vector3 a, Vector3 b, Vector3 c, Vector3 up)
+    {
+        var normal = GetNormal(a, b, c);
+        return Vector3.Dot(normal, up) > 0.0f;
+    }
+
+    /// <summary>
+    /// Returns true if the vertices of the triangle appear in counter-clockwise order. Given the up-vector (normalized vector
+    /// pointing from the triangle towards the viewer).
+    /// </summary>
+    public static bool IsTriangleCounterClockwise(Vector3 a, Vector3 b, Vector3 c, Vector3 up)
+    {
+        return !IsTriangleClockwise(a, b, c, up);
+    }
+
+    /// <summary>
     /// Returns true if the given vertex is inside or at the boundary of the given triangle
     /// </summary>
     public static bool IsVertexInsideTriangle(Vector2 vertex, Vector2 a, Vector2 b, Vector2 c)

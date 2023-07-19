@@ -64,6 +64,20 @@ public static class TrianglesTests
             new Vector2(0.0f, 1.0f),
             new Vector2(-1.0f, 0.0f)
         ));
+
+        True(Triangles.IsTriangleClockwise(
+            new Vector3(-1.0f, 0.0f, 0.0f),
+            new Vector3(0.0f, 1.0f, -1.0f),
+            new Vector3(1.0f, 0.0f, 0.0f),
+            Vector3.Normalize(new Vector3(0, 1.0f, 1.0f))
+        ));
+
+        False(Triangles.IsTriangleClockwise(
+            new Vector3(-1.0f, 0.0f, 0.0f),
+            new Vector3(0.0f, 1.0f, 1.0f),
+            new Vector3(1.0f, 0.0f, 0.0f),
+            Vector3.Normalize(new Vector3(0, 1.0f, 1.0f))
+        ));
     }
 
     [Fact(DisplayName = "`IsTriangleCounterClockwise` should determine if the given vertices are defined counter clockwise order")]
@@ -79,6 +93,20 @@ public static class TrianglesTests
             new Vector2(1.0f, 0.0f),
             new Vector2(0.0f, 1.0f),
             new Vector2(-1.0f, 0.0f)
+        ));
+
+        False(Triangles.IsTriangleCounterClockwise(
+            new Vector3(-1.0f, 0.0f, 0.0f),
+            new Vector3(0.0f, 1.0f, -1.0f),
+            new Vector3(1.0f, 0.0f, 0.0f),
+            Vector3.Normalize(new Vector3(0, 1.0f, 1.0f))
+        ));
+
+        True(Triangles.IsTriangleCounterClockwise(
+            new Vector3(-1.0f, 0.0f, 0.0f),
+            new Vector3(0.0f, 1.0f, 1.0f),
+            new Vector3(1.0f, 0.0f, 0.0f),
+            Vector3.Normalize(new Vector3(0, 1.0f, 1.0f))
         ));
     }
 
