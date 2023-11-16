@@ -1,23 +1,18 @@
-﻿using Xunit.Sdk;
-
-namespace LibGame.Tests;
+﻿namespace LibGame.Tests;
 public class AssertFloat
 {
     private const float DEFAULT_TOLERANCE = 1.0f / 1000.0f;
 
     public static void EqualF(float expected, float actual, float tolerance = DEFAULT_TOLERANCE)
     {
-        if (MathF.Abs(expected - actual) > tolerance)
-        {
-            throw new AssertActualExpectedException(expected, actual, string.Empty);
-        }
+        Equal(expected, actual, tolerance);
     }
 
     public static void EqualF(Vector2 expected, Vector2 actual, float tolerance = DEFAULT_TOLERANCE)
     {
         if (Vector2.Distance(expected, actual) > tolerance)
         {
-            throw new AssertActualExpectedException(expected, actual, string.Empty);
+            Equal(expected, actual);
         }
     }
 
@@ -25,7 +20,7 @@ public class AssertFloat
     {
         if (Vector3.Distance(expected, actual) > tolerance)
         {
-            throw new AssertActualExpectedException(expected, actual, string.Empty);
+            Equal(expected, actual);
         }
     }
 
@@ -33,7 +28,7 @@ public class AssertFloat
     {
         if (Vector4.Distance(expected, actual) > tolerance)
         {
-            throw new AssertActualExpectedException(expected, actual, string.Empty);
+            Equal(expected, actual);
         }
     }
 }
