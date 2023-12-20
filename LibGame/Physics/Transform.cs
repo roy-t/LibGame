@@ -161,7 +161,7 @@ public readonly struct Transform
     public readonly Transform FaceTargetConstrained(Vector3 target, Vector3 up)
     {
         var dot = Vector3.Dot(Vector3.Normalize(target - this.Position), up);
-        if (Math.Abs(dot) < 0.99f)
+        if (Math.Abs(dot) < 0.995f)
         {
             var matrix = Matrix4x4.CreateLookAt(this.Position, target, up);
             if (Matrix4x4.Invert(matrix, out var inverted))

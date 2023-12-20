@@ -9,8 +9,6 @@ public static class Picking
     /// </summary>
     /// <param name="cursor">Offset of the cursor from the top left corner of the window, in pixels</param>
     /// <param name="viewport">Viewport</param>
-    /// <param name="minDepth">Camera near plane</param>
-    /// <param name="maxDepth">Camera far plane</param>
     /// <param name="worldViewProjection">view projection of the camera, you can add an inverse translation matrix to assist in picking objects</param>
     /// <returns></returns>
     public static (Vector3 position, Vector3 direction) CalculateCursorRay(Vector2 cursor, in Rectangle viewport, in Matrix4x4 worldViewProjection)
@@ -35,24 +33,25 @@ public static class Picking
     public static Vector3 Unproject(in Rectangle viewport, float minDepth, float maxDepth, Vector3 source, in Matrix4x4 worldViewProjection)
     {
         Matrix4x4.Invert(worldViewProjection, out var matrix);
-        source.X = (((source.X - viewport.X) / ((float)viewport.Width)) * 2f) - 1f;
-        source.Y = -((((source.Y - viewport.Y) / ((float)viewport.Height)) * 2f) - 1f);
-        source.Z = (source.Z - minDepth) / (maxDepth - minDepth);
+
+        source.X = Ranges.Map(source.X, (viewport.X, viewport.X + viewport.Width), (-1.0f, 1.0f));
+        source.Y = -Ranges.Map(source.Y, (viewport.Y, viewport.Y + viewport.Height), (-1.0f, 1.0f));
+        source.Z = Ranges.Map(source.Z, (minDepth, maxDepth), (-1.0f, 1.0f));
+
         var vector = Vector3.Transform(source, matrix);
-        var a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
+        var a = (source.X * matrix.M14) + (source.Y * matrix.M24) + (source.Z * matrix.M34) + matrix.M44;
         if (!WithinEpsilon(a, 1f))
         {
-            vector.X = vector.X / a;
-            vector.Y = vector.Y / a;
-            vector.Z = vector.Z / a;
+            vector.X /= a;
+            vector.Y /= a;
+            vector.Z /= a;
         }
         return vector;
-
     }
 
     private static bool WithinEpsilon(float a, float b)
     {
         var num = a - b;
-        return ((-1.401298E-45f <= num) && (num <= float.Epsilon));
+        return (-1.401298E-45f <= num) && (num <= float.Epsilon);
     }
 }
