@@ -125,6 +125,7 @@ public readonly struct Transform
         return new Transform(this.Position, this.GetRotation(), this.Origin, this.GetScale() * change);
     }
 
+    [Obsolete("Usually this function does not what you expect it to do, use FaceTargetContstrained instead.")]
     public readonly Transform FaceTarget(Vector3 target)
     {
         var currentForward = this.GetForward();
