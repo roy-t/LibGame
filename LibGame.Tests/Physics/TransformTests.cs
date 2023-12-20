@@ -68,7 +68,9 @@ public static class TransformTests
         // Utility methods
 
         t = default;
+#pragma warning disable CS0618 // Type or member is obsolete
         t = t.FaceTarget(Vector3.UnitX);
+#pragma warning restore CS0618 // Type or member is obsolete
         EqualF(Vector3.UnitX, t.GetForward());
 
         t = default;
