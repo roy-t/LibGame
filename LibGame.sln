@@ -5,12 +5,14 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibGame", "LibGame\LibGame.csproj", "{99F9B937-F720-47A4-828C-31B337154337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibGame.Tests", "LibGame.Tests\LibGame.Tests.csproj", "{B1617CD7-638C-45B0-B576-6819F543C049}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibGame.Tests", "LibGame.Tests\LibGame.Tests.csproj", "{B1617CD7-638C-45B0-B576-6819F543C049}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B74475E2-815F-465A-B4FB-392D0D453379}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibGame.Profiler", "LibGame.Profiler\LibGame.Profiler.csproj", "{1BC07F20-12EE-4B5B-A762-3B70609AF8D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{B1617CD7-638C-45B0-B576-6819F543C049}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1617CD7-638C-45B0-B576-6819F543C049}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1617CD7-638C-45B0-B576-6819F543C049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BC07F20-12EE-4B5B-A762-3B70609AF8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BC07F20-12EE-4B5B-A762-3B70609AF8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BC07F20-12EE-4B5B-A762-3B70609AF8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BC07F20-12EE-4B5B-A762-3B70609AF8D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
