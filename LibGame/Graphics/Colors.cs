@@ -3,11 +3,25 @@ using System.Numerics;
 
 namespace LibGame.Graphics;
 
+/// <summary>
+/// A color in HSV space
+/// </summary>
+/// <param name="H">Hue, in [0..1]</param>
+/// <param name="S">Saturation, in [0..1]</param>
+/// <param name="V">Lightness, in [0..1]</param>
 public readonly record struct ColorHSV(float H, float S, float V)
 {
     public static implicit operator ColorHSV(Vector3 vector) => new(vector.X, vector.Y, vector.Z);
     public static implicit operator Vector3(ColorHSV color) => new(color.H, color.S, color.V);    
 }
+
+
+/// <summary>
+/// Standard color representation, the red, green, and blue values are gamma corrected
+/// </summary>
+/// <param name="R">Red, in [0..1]</param>
+/// <param name="G">Green, in [0..1]</param>
+/// <param name="B">Blue, in [0..1]</param>
 public readonly record struct ColorRGB(float R, float G, float B)
 {
     public static implicit operator ColorRGB(Vector3 vector) => new(vector.X, vector.Y, vector.Z);
@@ -15,6 +29,12 @@ public readonly record struct ColorRGB(float R, float G, float B)
     public static implicit operator Vector4(ColorRGB color) => new(color.R, color.G, color.B, 1.0f);
 }
 
+/// <summary>
+/// A Color represented using red, green, and blue components in linear (not-gamma corrected) space
+/// </summary>
+/// <param name="R">Red, in [0..1]</param>
+/// <param name="G">Green, in [0..1]</param>
+/// <param name="B">Blue, in [0..1]</param>
 public readonly record struct ColorLinear(float R, float G, float B)
 {
     public static implicit operator ColorLinear(Vector3 vector) => new(vector.X, vector.Y, vector.Z);
@@ -22,11 +42,20 @@ public readonly record struct ColorLinear(float R, float G, float B)
     public static implicit operator Vector4(ColorLinear color) => new(color.R, color.G, color.B, 1.0f);
 }
 
+/// <summary>
+/// Utility methods for colors
+/// </summary>
 public static class Colors
 {
     private const float Gamma = 2.2f;
     private const float InverseGamma = 0.45454545455f;
 
+    /// <summary>
+    /// Linearly interpolate (lerp) between two RGB colors.
+    /// </summary>
+    /// <remarks>
+    /// The interpolation itself is done in HSV space to improve color accuracy
+    /// </remarks>
     public static ColorRGB Interpolate(ColorRGB a, ColorRGB b, float amount)
     {
         var hsvA = RGBToHSV(a);
@@ -36,6 +65,9 @@ public static class Colors
         return HSVToRGB(interolated);        
     }
 
+    /// <summary>
+    /// Computes a color from a hex string
+    /// </summary>
     public static ColorRGB FromHex(string hex)
     {
         var c = ColorTranslator.FromHtml(hex);
@@ -44,6 +76,9 @@ public static class Colors
 
     // Conversion methods adapted from: http://www.easyrgb.com/en/math.php
 
+    /// <summary>
+    /// Converts an RGB color to a HSV color
+    /// </summary>
     public static ColorHSV RGBToHSV(ColorRGB color)
     {
         var r = color.R;
@@ -85,6 +120,9 @@ public static class Colors
         return new ColorHSV(h, s, v);
     }
 
+    /// <summary>
+    /// Converts an HSV color to an RGB color
+    /// </summary>
     public static ColorRGB HSVToRGB(ColorHSV color)
     {
         var h = color.H;
@@ -122,6 +160,9 @@ public static class Colors
         }
     }
 
+    /// <summary>
+    /// Converts an RGB color to a linear color
+    /// </summary>
     public static ColorLinear RGBToLinear(ColorRGB color)
     {
         var r = MathF.Pow(color.R, Gamma);
@@ -131,6 +172,9 @@ public static class Colors
         return new ColorLinear(r, g, b);
     }
 
+    /// <summary>
+    /// Converts a linear color to an RGB color
+    /// </summary>
     public static ColorRGB LinearToRGB(ColorLinear color)
     {
         var r = MathF.Pow(color.R, InverseGamma);

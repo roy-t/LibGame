@@ -13,6 +13,9 @@ public static class VectorExtensions
         W = 3,
     }
 
+    /// <summary>
+    /// Apply the given function to every component of the vector
+    /// </summary>    
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector4 Apply(this Vector4 v, Func<float, float> function)
     {
@@ -25,6 +28,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Apply the given function to every component of the vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector3 Apply(this Vector3 v, Func<float, float> function)
     {
@@ -36,6 +42,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Apply the given function to every component of the vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector2 Apply(this Vector2 v, Func<float, float> function)
     {
@@ -46,6 +55,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Copy the given vector components to a new vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector4 Swizzle(this Vector4 v, VectorComponent a, VectorComponent b, VectorComponent c, VectorComponent d)
     {
@@ -58,6 +70,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Copy the given vector components to a new vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector3 Swizzle(this Vector4 v, VectorComponent a, VectorComponent b, VectorComponent c)
     {        
@@ -69,6 +84,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Copy the given vector components to a new vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector2 Swizzle(this Vector4 v, VectorComponent a, VectorComponent b)
     {
@@ -79,6 +97,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Copy the given vector components to a new vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector3 Swizzle(this Vector3 v, VectorComponent a, VectorComponent b, VectorComponent c)
     {
@@ -90,6 +111,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Copy the given vector components to a new vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector2 Swizzle(this Vector3 v, VectorComponent a, VectorComponent b)
     {
@@ -100,6 +124,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Copy the given vector components to a new vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector4 Swizzle(this Vector3 v, VectorComponent a, VectorComponent b, VectorComponent c, VectorComponent d)
     {
@@ -112,6 +139,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Copy the given vector components to a new vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector2 Swizzle(this Vector2 v, VectorComponent a, VectorComponent b)
     {
@@ -122,6 +152,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Copy the given vector components to a new vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector3 Swizzle(this Vector2 v, VectorComponent a, VectorComponent b, VectorComponent c)
     {
@@ -133,6 +166,9 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Copy the given vector components to a new vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector4 Swizzle(this Vector2 v, VectorComponent a, VectorComponent b, VectorComponent c, VectorComponent d)
     {
@@ -145,18 +181,27 @@ public static class VectorExtensions
         );
     }
 
+    /// <summary>
+    /// Add more dimensions to the given vector
+    /// </summary>    
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector3 Expand(this Vector2 vector, float z = 0.0f)
     {
         return new Vector3(vector, z);
     }
 
+    /// <summary>
+    /// Add more dimensions to the given vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector4 Expand(this Vector2 vector, float z, float w)
     {
         return new Vector4(vector, z, w);
     }
 
+    /// <summary>
+    /// Add more dimensions to the given vector
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector4 Expand(this Vector3 vector, float w = 0.0f)
     {

@@ -2,6 +2,9 @@
 
 namespace LibGame.Graphics;
 
+/// <summary>
+/// Collection of colors that allows you to easily randomly pick one
+/// </summary>
 public sealed class ColorPalette
 {
     private readonly ColorRGB[] ColorList;
