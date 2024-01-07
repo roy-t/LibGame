@@ -16,7 +16,7 @@ public static class FractalBrownianMotion
     /// </summary>
     /// <param name="generator">The noise generator</param>
     /// <param name="lacunarity">The desired increase in frequency per octave (1.0f..inf)</param>
-    /// <param name="persistance">The desired decrease in amplitude per octave (0.0f, 1.0f]</param>
+    /// <param name="persistance">The desired decrease in amplitude per octave (0.0f..1.0f]</param>
     /// <param name="octaves">The number of layers to generate</param>
     public static float Generate(NoiseGenerator1D generator, float x, float lacunarity = Lacunarity, float persistance = Persistance, int octaves = Octaves)
     {
@@ -41,7 +41,7 @@ public static class FractalBrownianMotion
     /// </summary>
     /// <param name="generator">The noise generator</param>
     /// <param name="lacunarity">The desired increase in frequency per octave (1.0f..inf)</param>
-    /// <param name="persistance">The desired decrease in amplitude per octave (0.0f, 1.0f]</param>
+    /// <param name="persistance">The desired decrease in amplitude per octave (0.0f..1.0f]</param>
     /// <param name="octaves">The number of layers to generate</param>
     public static float Generate(NoiseGenerator2D generator, float x, float y, float lacunarity = Lacunarity, float persistance = Persistance, int octaves = Octaves)
     {
@@ -67,7 +67,7 @@ public static class FractalBrownianMotion
     /// </summary>
     /// <param name="generator">The noise generator</param>
     /// <param name="lacunarity">The desired increase in frequency per octave (1.0f..inf)</param>
-    /// <param name="persistance">The desired decrease in amplitude per octave (0.0f, 1.0f]</param>
+    /// <param name="persistance">The desired decrease in amplitude per octave (0.0f..1.0f]</param>
     /// <param name="octaves">The number of layers to generate</param>
     public static float Generate(NoiseGenerator3D generator, float x, float y, float z, float lacunarity = Lacunarity, float persistance = Persistance, int octaves = Octaves)
     {
@@ -94,7 +94,7 @@ public static class FractalBrownianMotion
     /// </summary>
     /// <param name="generator">The noise generator</param>
     /// <param name="lacunarity">The desired increase in frequency per octave (1.0f..inf)</param>
-    /// <param name="persistance">The desired decrease in amplitude per octave (0.0f, 1.0f]</param>
+    /// <param name="persistance">The desired decrease in amplitude per octave (0.0f..1.0f]</param>
     /// <param name="octaves">The number of layers to generate</param>
     public static float Generate(NoiseGenerator4D generator, float x, float y, float z, float w, float lacunarity = Lacunarity, float persistance = Persistance, int octaves = Octaves)
     {
