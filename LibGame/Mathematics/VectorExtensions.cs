@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using System.Runtime.CompilerServices;
+using static LibGame.Mathematics.MathUtils;
 
 namespace LibGame.Mathematics;
 
@@ -51,7 +52,7 @@ public static class VectorExtensions
         return new Vector2
         (
             function(v.X),
-            function(v.Y)            
+            function(v.Y)
         );
     }
 
@@ -75,7 +76,7 @@ public static class VectorExtensions
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector3 Swizzle(this Vector4 v, VectorComponent a, VectorComponent b, VectorComponent c)
-    {        
+    {
         return new Vector3
         (
             v[(int)a],
@@ -120,7 +121,7 @@ public static class VectorExtensions
         return new Vector2
         (
             v[(int)a],
-            v[(int)b]            
+            v[(int)b]
         );
     }
 
@@ -148,7 +149,7 @@ public static class VectorExtensions
         return new Vector2
         (
             v[(int)a],
-            v[(int)b]            
+            v[(int)b]
         );
     }
 
@@ -206,5 +207,55 @@ public static class VectorExtensions
     public static Vector4 Expand(this Vector3 vector, float w = 0.0f)
     {
         return new Vector4(vector, w);
+    }
+
+
+    /// <summary>
+    /// Treat the vector as a circular array and move each element 'amount' positions to the left
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector2 RotateLeft(this Vector2 vector, int amount = 1)
+    {
+        return new Vector2(
+            vector[(amount + 0) % 4],
+            vector[(amount + 1) % 4]);
+    }
+
+    /// <summary>
+    /// Treat the vector as a circular array and move each element 'amount' positions to the left
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector3 RotateLeft(this Vector3 vector, int amount = 1)
+    {
+        return new Vector3(
+            vector[(amount + 0) % 4],
+            vector[(amount + 1) % 4],
+            vector[(amount + 2) % 4]);
+    }
+
+    /// <summary>
+    /// Treat the vector as a circular array and move each element 'amount' positions to the left
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector4 RotateLeft(this Vector4 vector, int amount = 1)
+    {
+        return new Vector4(
+            vector[CMod(amount + 0, 4)],
+            vector[CMod(amount + 1, 4)],
+            vector[CMod(amount + 2, 4)],
+            vector[CMod(amount + 3, 4)]);
+    }
+
+    /// <summary>
+    /// Treat the vector as a circular array and move each element 'amount' positions to the right
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector4 RotateRight(this Vector4 vector, int amount = 1)
+    {
+        return new Vector4(
+            vector[CMod(0 - amount, 4)],
+            vector[CMod(1 - amount, 4)],
+            vector[CMod(2 - amount, 4)],
+            vector[CMod(3 - amount, 4)]);
     }
 }

@@ -37,7 +37,7 @@ public static class VectorExtensionsTests
         EqualF(new Vector4(w, z, y, x), v4.Swizzle(W, Z, Y, X));
     }
 
-    [Fact(DisplayName ="`Expand should return a new Vector3 with the given Z component value")]
+    [Fact(DisplayName = "`Expand should return a new Vector3 with the given Z component value")]
     public static void Expand()
     {
         EqualF(new Vector4(0.0f, 0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f).Expand());
@@ -46,5 +46,23 @@ public static class VectorExtensionsTests
         EqualF(new Vector3(0.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f).Expand());
         EqualF(new Vector3(0.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f).Expand(0.0f));
         EqualF(new Vector3(0.0f, 0.0f, 1.0f), new Vector2(0.0f, 0.0f).Expand(1.0f));
+    }
+
+    [Fact(DisplayName = "`Rotate` should move elements the given amount in the given direction")]
+    public static void Rotate()
+    {
+        var v = new Vector4(0, 1, 2, 3);
+
+        EqualF(v, v.RotateLeft(0));
+        EqualF(new Vector4(1, 2, 3, 0), v.RotateLeft(1));
+        EqualF(new Vector4(2, 3, 0, 1), v.RotateLeft(2));
+        EqualF(new Vector4(3, 0, 1, 2), v.RotateLeft(3));
+        EqualF(new Vector4(0, 1, 2, 3), v.RotateLeft(4));
+
+        EqualF(v, v.RotateRight(0));
+        EqualF(new Vector4(3, 0, 1, 2), v.RotateRight(1));
+        EqualF(new Vector4(2, 3, 0, 1), v.RotateRight(2));
+        EqualF(new Vector4(1, 2, 3, 0), v.RotateRight(3));
+        EqualF(new Vector4(0, 1, 2, 3), v.RotateRight(4));
     }
 }
