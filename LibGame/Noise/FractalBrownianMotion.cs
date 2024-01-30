@@ -38,6 +38,7 @@ public static class FractalBrownianMotion
 
     /// <summary>
     /// Generate more interesting noise by overlaying multiple octaves of noise with decreasing influence, but increasing frequency.
+    /// Note that while the noise generator generates noise in the [-1..1] range, FBM can generate values outside of that range.
     /// </summary>
     /// <param name="generator">The noise generator</param>
     /// <param name="lacunarity">The desired increase in frequency per octave (1.0f..inf)</param>
@@ -64,6 +65,7 @@ public static class FractalBrownianMotion
 
     /// <summary>
     /// Generate more interesting noise by overlaying multiple octaves of noise with decreasing influence, but increasing frequency.
+    /// Note that while the noise generator generates noise in the [-1..1] range, FBM can generate values outside of that range.
     /// </summary>
     /// <param name="generator">The noise generator</param>
     /// <param name="lacunarity">The desired increase in frequency per octave (1.0f..inf)</param>
@@ -91,6 +93,7 @@ public static class FractalBrownianMotion
 
     /// <summary>
     /// Generate more interesting noise by overlaying multiple octaves of noise with decreasing influence, but increasing frequency.
+    /// Note that while the noise generator generates noise in the [-1..1] range, FBM can generate values outside of that range.
     /// </summary>
     /// <param name="generator">The noise generator</param>
     /// <param name="lacunarity">The desired increase in frequency per octave (1.0f..inf)</param>
