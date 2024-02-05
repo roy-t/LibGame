@@ -63,4 +63,18 @@ public sealed class ColorPalette
         FromHex("#586625"),
         FromHex("#8ba49d")
     );
+
+
+    public static ColorPalette PrimariesAndSecondaries { get; } =
+    new ColorPalette
+    (
+        new ColorRGB(0.0f, 0.0f, 0.0f),
+        new ColorRGB(1.0f, 0.0f, 0.0f),
+        new ColorRGB(0.0f, 1.0f, 0.0f),
+        new ColorRGB(0.0f, 0.0f, 1.0f),
+        new ColorRGB(0.0f, 1.0f, 1.0f),
+        new ColorRGB(1.0f, 0.0f, 1.0f),
+        new ColorRGB(1.0f, 1.0f, 0.0f),
+        new ColorRGB(1.0f, 1.0f, 1.0f)
+    );
 }
