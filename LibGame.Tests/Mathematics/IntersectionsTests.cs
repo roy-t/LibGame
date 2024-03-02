@@ -12,14 +12,13 @@ public static class IntersectionsTests
         var n = new Vector3(0, 0, -1);
         var e = new Vector3(1, 0, 1);
         var w = new Vector3(-1, 0, 1);
-        var f = Intersections.RayTriangle(in position, in direction, in n, in e, in w);
+        Intersections.RayTriangle(in position, in direction, in n, in e, in w, out var f);
 
-        NotNull(f);
-        Equal(1.0f, f.Value);
+        Equal(1.0f, f);
 
 
         position = new Vector3(10, 1, 1);
-        f = Intersections.RayTriangle(in position, in direction, in n, in e, in w);
-        Null(f);
+        var hit = Intersections.RayTriangle(in position, in direction, in n, in e, in w, out var _);
+        False(hit);
     }
 }
