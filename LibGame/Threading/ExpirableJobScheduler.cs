@@ -41,7 +41,7 @@ public sealed class ExpirableJobScheduler
     /// Calls the action delegate if the current version is up to date and no jobs are currently running.
     /// This method is thread safe.
     /// </summary>
-    public bool DoIfUpToDate(int minVersion, Action action)
+    public void DoIfUpToDate(int minVersion, Action action)
     {
         try
         {
