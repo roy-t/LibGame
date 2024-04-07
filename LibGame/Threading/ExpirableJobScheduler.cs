@@ -49,9 +49,7 @@ public sealed class ExpirableJobScheduler
             if (this.IsIdleAndFreshThreadUnsafe(minVersion))
             {
                 action();
-                return true;
             }
-            return false;
         }
         finally
         {
