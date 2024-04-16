@@ -50,4 +50,7 @@
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Vortice.Mathematics" Version="1.7.8" />
+	</ItemGroup>
 </Project>
