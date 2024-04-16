@@ -10,7 +10,9 @@ public readonly record struct Neighbours<T>(T NW, T N, T NE, T W, T E, T SW, T S
 
 public static class TileUtilities
 {
-    // Returns corners for each side from left to right
+    /// <summary>
+    /// Return the two corners connect to the given side. For example, The north side will give the NE and NW corners.
+    /// </summary>
     public static (TileCorner A, TileCorner B) TileSideToTileCorners(TileSide side)
     {
         return side switch
@@ -23,6 +25,9 @@ public static class TileUtilities
         };
     }
 
+    /// <summary>
+    /// Returns the opposite side of the given side. For example, north will return south.
+    /// </summary>
     public static TileSide GetOppositeSide(TileSide side)
     {
         return side switch
@@ -34,20 +39,6 @@ public static class TileUtilities
             _ => throw new ArgumentOutOfRangeException(nameof(side)),
         };
     }
-
-    public static (int x, int y) GetNeighbourIndex(int x, int y, TileSide side)
-    {
-        return side switch
-        {
-            TileSide.North => (x + 0, y - 1),
-            TileSide.East => (x + 1, y + 0),
-            TileSide.South => (x + 0, y + 1),
-            TileSide.West => (x - 1, y + 0),
-            _ => throw new ArgumentOutOfRangeException(nameof(side))
-        };
-    }
-
-
 
     public static Neighbours<T> GetNeighboursFromGrid<T>(T[] grid, int columns, int rows, int index, T fallback)
         where T : struct
@@ -80,67 +71,7 @@ public static class TileUtilities
         return fallBack;
     }
 
-    public static Tile FitFirstColumn(Tile n, byte heightNorthEast, byte heightEast, byte heightSouth, byte heightSouthEast, byte baseHeight)
-    {
-        var hne = Fit(baseHeight, n.GetHeight(TileCorner.SE), heightNorthEast, heightEast);
-        var hse = Fit(baseHeight, heightEast, heightSouthEast, heightSouth);
-        var hsw = Fit(baseHeight, heightSouth);
-        var hnw = Fit(baseHeight, n.GetHeight(TileCorner.SW));
 
-        return new Tile(hne, hse, hsw, hnw, baseHeight);
-    }
-
-    public static Tile FitFirstRow(Tile w, byte heightEast, byte heightSouthWest, byte heightSouth, byte heightSouthEast, byte baseHeight)
-    {
-        var hne = Fit(baseHeight, heightEast);
-        var hse = Fit(baseHeight, heightEast, heightSouthEast, heightSouth);
-        var hsw = Fit(baseHeight, w.GetHeight(TileCorner.SE), heightSouthWest, heightSouth);
-        var hnw = Fit(baseHeight, w.GetHeight(TileCorner.NE));
-
-        return new Tile(hne, hse, hsw, hnw, baseHeight);
-    }
-
-
-    public static Tile Fit(Tile nw, Tile n, Tile ne, Tile w, byte heightEast, byte heightSouthWest, byte heightSouth, byte heightSouthEast, byte baseHeight)
-    {
-        var hne = Fit(baseHeight, n.GetHeight(TileCorner.SE), ne.GetHeight(TileCorner.SW), heightEast);
-        var hse = Fit(baseHeight, heightEast, heightSouthEast, heightSouth);
-        var hsw = Fit(baseHeight, w.GetHeight(TileCorner.SE), heightSouthWest, heightSouth);
-        var hnw = Fit(baseHeight, nw.GetHeight(TileCorner.SE), n.GetHeight(TileCorner.SW), w.GetHeight(TileCorner.NE));
-
-        return new Tile(hne, hse, hsw, hnw, baseHeight);
-    }
-
-    private static CornerType Fit(byte baseHeight, params byte[] options)
-    {
-        var result = baseHeight;
-        for (var i = 0; i < options.Length; i++)
-        {
-            var height = options[i];
-            if (IsWithin(height, baseHeight - 1, baseHeight + 1))
-            {
-                result = height;
-                break;
-            }
-        }
-
-        if (result > baseHeight)
-        {
-            return CornerType.Raised;
-        }
-
-        if (result < baseHeight)
-        {
-            return CornerType.Lowered;
-        }
-
-        return CornerType.Level;
-    }
-
-    private static bool IsWithin(int value, int min, int max)
-    {
-        return value <= max || value >= min;
-    }
 
     public static Vector3 GetCornerPosition(int column, int row, Tile tile, TileCorner c)
     {
