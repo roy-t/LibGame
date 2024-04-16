@@ -4,16 +4,17 @@ using LibGame.Tiles;
 
 namespace LibGame.Collections;
 
-public interface IReadOnlyGrid<T>
+public static class GridExtensions
 {
-    public T this[int index] { get; }
-    public T this[int column, int row] { get; }
+    public static IReadOnlyGrid<T> SliceAtMost<T>(this IReadOnlyGrid<T> grid, int columnOffset, int columnSpan, int rowOffset, int rowSpan)
+    {
+        columnSpan = Math.Min(grid.Columns - columnOffset, columnSpan);
+        rowSpan = Math.Min(grid.Rows - rowOffset, rowSpan);
 
-    public int Columns { get; }
-    public int Rows { get; }
-    public int Count { get; }
+        return grid.Slice(columnOffset, columnSpan, rowOffset, rowSpan);
+    }
 
-    public (int column, int row) GetNeighbourIndex(int column, int row, TileSide side)
+    public static (int column, int row) GetNeighbourIndex<T>(this IReadOnlyGrid<T> grid, int column, int row, TileSide side)
     {
         var (nc, nr) = side switch
         {
@@ -24,28 +25,30 @@ public interface IReadOnlyGrid<T>
             _ => throw new ArgumentOutOfRangeException(nameof(side))
         };
 
-        if (nc < 0 || nc >= this.Columns)
+        if (nc < 0 || nc >= grid.Columns)
         {
             throw new ArgumentOutOfRangeException(nameof(side));
         }
 
-        if (nr < 0 || nr >= this.Rows)
+        if (nr < 0 || nr >= grid.Rows)
         {
             throw new ArgumentOutOfRangeException(nameof(side));
         }
 
         return (nc, nr);
     }
+}
+
+public interface IReadOnlyGrid<T>
+{
+    public T this[int index] { get; }
+    public T this[int column, int row] { get; }
+
+    public int Columns { get; }
+    public int Rows { get; }
+    public int Count { get; }
 
     public IReadOnlyGrid<T> Slice(int columnOffset, int columnSpan, int rowOffset, int rowSpan);
-
-    public IReadOnlyGrid<T> SliceAtMost(int columnOffset, int columnSpan, int rowOffset, int rowSpan)
-    {
-        columnSpan = Math.Min(this.Columns - columnOffset, columnSpan);
-        rowSpan = Math.Min(this.Rows - rowOffset, rowSpan);
-
-        return this.Slice(columnOffset, columnSpan, rowOffset, rowSpan);
-    }
 }
 
 public readonly struct ReadOnlyGridSlice<T> : IReadOnlyGrid<T>
@@ -172,5 +175,3 @@ public sealed class Grid<T> : IReadOnlyGrid<T>
         return new ReadOnlyGridSlice<T>(this.Tiles, this.Columns, columnOffset, columnSpan, rowOffset, rowSpan);
     }
 }
-
-

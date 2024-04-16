@@ -4,6 +4,11 @@ using LibGame.Mathematics;
 namespace LibGame.Tiles;
 public static class TileBuilder
 {
+    /// <summary>
+    /// Takes a heightmap and tries to fit tiles over it. By first filling the first column and first row. After that the
+    /// terrain is filed in row, by row. Each tile takes its base height from the height map.
+    /// Each corner tries to connect with neighbouring corners from previously added tiles.
+    /// </summary>
     public static Grid<Tile> FromHeightMap(IReadOnlyGrid<byte> heightMap)
     {
         var count = heightMap.Count;
@@ -36,8 +41,7 @@ public static class TileBuilder
             var (c, r) = Indexes.ToTwoDimensional(i, columns);
             if (c > 0 && r > 0)
             {
-                // TODO: why do we need this cast as tiles implements this interface!
-                var nwNeighbours = ((IReadOnlyGrid<Tile>)tiles).SliceAtMost(c - 1, 3, r - 1, 3);
+                var nwNeighbours = tiles.SliceAtMost(c - 1, 3, r - 1, 3);
                 var seNeighbours = heightMap.SliceAtMost(c - 1, 3, r - 1, 3);
 
                 tiles[i] = Fit(nwNeighbours, seNeighbours, heightMap[c, r]);
