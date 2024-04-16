@@ -72,6 +72,8 @@ public readonly struct ReadOnlyGridSlice<T> : IReadOnlyGrid<T>
         Debug.Assert(rowOffset >= 0);
         Debug.Assert(rowSpan > 0);
 
+
+
         this.tiles = tiles;
         this.stride = stride;
 
@@ -172,6 +174,16 @@ public sealed class Grid<T> : IReadOnlyGrid<T>
 
     public IReadOnlyGrid<T> Slice(int columnOffset, int columnSpan, int rowOffset, int rowSpan)
     {
+        if (columnOffset + columnSpan > this.Columns)
+        {
+            throw new ArgumentOutOfRangeException(nameof(columnSpan));
+        }
+
+        if (rowOffset + rowSpan > this.Rows)
+        {
+            throw new ArgumentOutOfRangeException(nameof(rowSpan));
+        }
+
         return new ReadOnlyGridSlice<T>(this.Tiles, this.Columns, columnOffset, columnSpan, rowOffset, rowSpan);
     }
 }

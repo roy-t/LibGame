@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using LibGame.Mathematics;
 
 namespace LibGame.Tiles;
 
@@ -39,39 +38,6 @@ public static class TileUtilities
             _ => throw new ArgumentOutOfRangeException(nameof(side)),
         };
     }
-
-    public static Neighbours<T> GetNeighboursFromGrid<T>(T[] grid, int columns, int rows, int index, T fallback)
-        where T : struct
-    {
-        var nw = GetFromGrid(grid, columns, rows, index, -1, -1, fallback);
-        var n = GetFromGrid(grid, columns, rows, index, 0, -1, fallback);
-        var ne = GetFromGrid(grid, columns, rows, index, 1, -1, fallback);
-        var w = GetFromGrid(grid, columns, rows, index, -1, 0, fallback);
-        var e = GetFromGrid(grid, columns, rows, index, 1, 0, fallback);
-        var sw = GetFromGrid(grid, columns, rows, index, -1, 1, fallback);
-        var s = GetFromGrid(grid, columns, rows, index, 0, 1, fallback);
-        var se = GetFromGrid(grid, columns, rows, index, 1, 1, fallback);
-
-        return new Neighbours<T>(nw, n, ne, w, e, sw, s, se);
-    }
-
-
-    public static T GetFromGrid<T>(T[] grid, int columns, int rows, int index, int offsetColumn, int offsetRow, T fallBack)
-    {
-        var (c, r) = Indexes.ToTwoDimensional(index, columns);
-        c += offsetColumn;
-        r += offsetRow;
-
-        if (c >= 0 && c < columns && r >= 0 && r < rows)
-        {
-            var i = Indexes.ToOneDimensional(c, r, columns);
-            return grid[i];
-        }
-
-        return fallBack;
-    }
-
-
 
     public static Vector3 GetCornerPosition(int column, int row, Tile tile, TileCorner c)
     {
