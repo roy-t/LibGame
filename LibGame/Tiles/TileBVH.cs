@@ -98,12 +98,13 @@ public sealed class TileBVH
     /// <summary>
     /// Computes the one dimensional index of the tile hit and the exact point in 3D space where the hit occured
     /// </summary>    
-    public bool CheckTileHit(Ray ray, out int tileIndex, out Vector3 point)
+    public bool CheckTileHit(Ray ray, out int tileIndex, out float distance)
     {
         var best = this.CheckTileHit(ray, 0, 0, 1);
+        distance = best.GetValueOrDefault(0.0f);
         if (best.HasValue)
         {
-            point = ray.Position + (ray.Direction * best.Value);
+            var point = ray.Position + (ray.Direction * best.Value);
             var column = Math.Clamp((int)point.X, 0, this.Dimensions - 1);
             var row = Math.Clamp((int)point.Z, 0, this.Dimensions - 1);
             tileIndex = Indexes.ToOneDimensional(column, row, this.Dimensions);
@@ -111,7 +112,6 @@ public sealed class TileBVH
         }
 
         tileIndex = -1;
-        point = Vector3.Zero;
         return false;
     }
 
