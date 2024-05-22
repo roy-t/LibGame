@@ -53,6 +53,36 @@ public static class TileUtilities
         }; ;
     }
 
+    public static Vector3 GetCenterPosition(Tile tile, int column, int row)
+    {
+        var sum = GetCornerPosition(column, row, tile, TileCorner.NE) +
+                  GetCornerPosition(column, row, tile, TileCorner.SE) +
+                  GetCornerPosition(column, row, tile, TileCorner.SW) +
+                  GetCornerPosition(column, row, tile, TileCorner.NW);
+
+        return sum / 4.0f;
+    }
+
+    public static (TileCorner corner, float distance) GetClosestCorner(Tile tile, int column, int row, Vector3 hit)
+    {
+        TileCorner[] corners = [TileCorner.NE, TileCorner.SE, TileCorner.SW, TileCorner.NW];
+        var bestDistance = float.MaxValue;
+        var bestCorner = TileCorner.NE;
+        for (var i = 0; i < corners.Length; i++)
+        {
+            var corner = corners[i];
+            var position = GetCornerPosition(column, row, tile, corner);
+            var distance = Vector3.DistanceSquared(position, hit);
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                bestCorner = corner;
+            }
+        }
+
+        return (bestCorner, bestDistance);
+    }
+
     public static bool AreSidesAligned(Tile a, Tile b, TileSide tileASide)
     {
         switch (tileASide)
