@@ -30,6 +30,11 @@ public sealed class ReferencePool<T> : IEnumerable<T>
     public int Capacity => this.pool.Length;
 
     /// <summary>
+    /// The number of elements in this pool
+    /// </summary>
+    public int Count => this.count;
+
+    /// <summary>
     /// Retrieves the element at the given index and returns a reference to it
     /// </summary>        
     /// <exception cref="KeyNotFoundException">If there was no element at the given index</exception>
